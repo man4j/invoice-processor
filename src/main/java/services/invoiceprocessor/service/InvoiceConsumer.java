@@ -27,8 +27,6 @@ public class InvoiceConsumer {
     
     @KafkaListener(topics = "invoices")
     public void listen(ConsumerRecord<String, String> record) throws JsonParseException, JsonMappingException, IOException {
-        System.out.println(record.key() + " : " + record.value());
-        
         listener.accept(new ObjectMapper().readValue(record.value(), Invoice.class));
         
         logger.info("Invoice received from: " + record.key());
