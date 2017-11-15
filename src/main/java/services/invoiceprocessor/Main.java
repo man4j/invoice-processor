@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import services.invoiceprocessor.service.InvoiceConsumer;
 
-@EnableKafkaMessaging(brokerList = "s:brokerList")
+@EnableKafkaMessaging(brokerList = "s:brokerList", autoOffsetReset = "s:autoOffsetReset")
 @ComponentScan(basePackageClasses = {InvoiceConsumer.class})
 public class Main {
     @Bean

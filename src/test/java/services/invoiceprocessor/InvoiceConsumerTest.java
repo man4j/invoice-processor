@@ -41,8 +41,6 @@ public class InvoiceConsumerTest {
         
         System.out.println("Send invoice from:" + invoice.getSeller());
 
-        //send twice during kafka bug )
-        kafkaTemplate.send("invoices", invoice.getSeller(), new ObjectMapper().writeValueAsString(invoice)).get();
         kafkaTemplate.send("invoices", invoice.getSeller(), new ObjectMapper().writeValueAsString(invoice)).get();
         
         latch.await(15, TimeUnit.SECONDS);
