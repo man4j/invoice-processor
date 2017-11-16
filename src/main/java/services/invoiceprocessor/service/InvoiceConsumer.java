@@ -26,12 +26,12 @@ public class InvoiceConsumer {
     }
     
     @KafkaListener(topics = "invoices")
-    public void listen(ConsumerRecord<String, String> record) throws JsonParseException, JsonMappingException, IOException, InterruptedException {        
+    public void listen(ConsumerRecord<String, String> record) throws JsonParseException, JsonMappingException, IOException {        
         logger.info("Invoice received from: " + record.key());
-        
-        Thread.sleep(1000); //emulate invoice processing
-        
-        listener.accept(new ObjectMapper().readValue(record.value(), Invoice.class));
+
+        if (listener != null) {        
+            listener.accept(new ObjectMapper().readValue(record.value(), Invoice.class));
+        }
     }
 }
 
