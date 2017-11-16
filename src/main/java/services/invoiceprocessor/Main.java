@@ -13,7 +13,7 @@ import services.invoiceprocessor.service.InvoiceConsumer;
 public class Main {
     @Bean
     public NewTopic invoicesTopic() {
-        return new NewTopic("invoices", 12, (short) 2);
+        return new NewTopic("invoices", 24, (short) 2);
     }
     
     public static void main(String[] args) {
