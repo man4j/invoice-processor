@@ -14,6 +14,7 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import services.invoiceprocessor.model.Invoice;
 import services.invoiceprocessor.service.InvoiceConsumer;
@@ -23,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={Main.class})
+@WebAppConfiguration
 public class InvoiceConsumerTest {    
     @Autowired
     private InvoiceConsumer invoiceConsumer;
