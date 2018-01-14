@@ -10,17 +10,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import services.invoiceprocessor.model.Invoice;
-import services.invoiceprocessor.service.InvoiceConsumer;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import services.invoiceprocessor.model.Invoice;
+import services.invoiceprocessor.service.InvoiceConsumer;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={Main.class})
@@ -32,13 +31,8 @@ public class InvoiceConsumerTest {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
     
-    @Autowired
-    private KafkaAdmin kafkaAdmin;
-
     @Test
     public void shouldWork() throws JsonProcessingException, InterruptedException, ExecutionException {
-        kafkaAdmin.initialize();
-        
         CountDownLatch latch = new CountDownLatch(1);
         
         AtomicBoolean status = new AtomicBoolean();
