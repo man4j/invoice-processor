@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -30,9 +31,7 @@ public class InvoiceConsumer {
     }
     
     @KafkaListener(topics = "invoices")
-    public void listen(ConsumerRecord<String, String> record) throws JsonParseException, JsonMappingException, IOException, InterruptedException {        
-        logger.info("Invoice received from: " + record.key());
-        
+    public void listen(ConsumerRecord<String, String> record, Acknowledgment ack) throws JsonParseException, JsonMappingException, IOException, InterruptedException {        
         Thread.sleep(1_000);
         
         invoiceCounter.increment();
@@ -40,6 +39,10 @@ public class InvoiceConsumer {
         if (listener != null) {        
             listener.accept(new ObjectMapper().readValue(record.value(), Invoice.class));
         }
+        
+        ack.acknowledge();
+        
+        logger.info("Invoice received from: " + record.key());
     }
 }
 
