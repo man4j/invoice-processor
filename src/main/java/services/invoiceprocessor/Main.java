@@ -13,7 +13,7 @@ import services.invoiceprocessor.service.InvoiceConsumer;
 
 @EnableUndertow
 @EnableMvc
-@EnableKafkaMessaging(brokerList = "s:brokerList", autoOffsetReset = "s:autoOffsetReset")
+@EnableKafkaMessaging(brokerList = "s:brokerList", autoOffsetReset = "s:autoOffsetReset", maxPollRecords = "10")
 @ComponentScan(basePackageClasses = {InvoiceConsumer.class, MainController.class})
 public class Main {
     @Bean
